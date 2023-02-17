@@ -2,7 +2,7 @@
   "tests": [
     {
       "name": "Automated tests",
-      "setup": "sudo -H pip3 install pytest",
+      "setup": "sudo -H pip3 install pytest pillow",
       "run": "pytest",
       "input": "",
       "output": "",

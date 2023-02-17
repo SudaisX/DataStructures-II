@@ -1,6 +1,5 @@
 from PIL import Image
-
-from mylist import ArrayList, PointerList
+from src.mylist import ArrayList, PointerList
 
 
 class MyImage:
@@ -10,12 +9,10 @@ class MyImage:
 
     def __init__(self, size: (int, int), pointer=False) -> None:
         """Initializes a black image of the given size.
-
         Parameters:
         - self: mandatory reference to this object
         - size: (width, height) specifies the dimensions to create.
         - pointer: if True then the backing list is pointer-based else array-based.
-
         Returns:
         none
         """
@@ -28,13 +25,11 @@ class MyImage:
             self.pixels: ArrayList = ArrayList(width * height,
                                                value=(0, 0, 0))
 
-    def __iter__(self) -> MyListIterator:
+    def __iter__(self):
         '''Iterator function to return an iterator (self) that allows iteration over
         this image.
-
         Parameters:
         - self: mandatory reference to this object
-
         Returns:
         an iterator (self) that allows iteration over this image.
         '''
@@ -45,15 +40,11 @@ class MyImage:
 
     def __next__(self):
         ''''Iterator function to return the next value from this list.
-
         Image pixels are iterated over in a left-to-right, top-to-bottom order.
-
         Parameters:
         - self: mandatory reference to this object
-
         Returns:
         the next value in this image since the last iteration.
-
         '''
         if self._iter_r < self.size[1]:  # Iteration within image bounds.
             # Save current value as per iteration variables. Update the
@@ -61,9 +52,9 @@ class MyImage:
             # order. Return saved value.
             value = self.get(self._iter_r, self._iter_c)
             self._iter_c += 1
-            if self_iter_c == self.size[0]:
-                self_iter_c = 0
-                self_iter_r += 1
+            if self._iter_c == self.size[0]:
+                self._iter_c = 0
+                self._iter_r += 1
             return value
         else:  # Image bounds exceeded, end of iteration.
             # Reset iteration variables, end iteration.
@@ -72,15 +63,12 @@ class MyImage:
 
     def _get_index(self, r: int, c: int) -> int:
         """Returns the list index for the given row, column coordinates.
-
         This is an internal function for use in class methods only. It should
         not be used or called from outside the class.
-
         Parameters:
         - self: mandatory reference to this object
         - r: the row coordinate
         - c: the column coordinate
-
         Returns:
         the list index corresponding to the given row and column coordinates
         """
@@ -92,14 +80,11 @@ class MyImage:
 
     def open(path: str, pointer=False) -> 'MyImage':
         """Creates and returns an image containing from the information at file path.
-
         The image format is inferred from the file name. The read image is
         converted to RGB as our type only stores RGB.
-
         Parameters:
         - path: path to the file containing image information
         - pointer: if True then the backing list is pointer-based, else array-based.
-
         Returns:
         the image created using the information from file path.
         """
@@ -117,13 +102,10 @@ class MyImage:
 
     def save(self, path: str) -> None:
         """Saves the image to the given file path.
-
         The image format is inferred from the file name.
-
         Parameters:
         - self: mandatory reference to this object
         - path: the image has to be saved here.
-
         Returns:
         none
         """
@@ -134,12 +116,10 @@ class MyImage:
 
     def get(self, r: int, c: int) -> (int, int, int):
         """Returns the value of the pixel at the given row and column coordinates.
-
         Parameters:
         - self: mandatory reference to this object
         - r: the row coordinate
         - c: the column coordinate
-
         Returns:
         the stored RGB value of the pixel at the given row and column coordinates.
         """
@@ -147,13 +127,11 @@ class MyImage:
 
     def set(self, r: int, c: int, rgb: (int, int, int)) -> None:
         """Write the rgb value at the pixel at the given row and column coordinates.
-
         Parameters:
         - self: mandatory reference to this object
         - r: the row coordinate
         - c: the column coordinate
         - rgb: the rgb value to write
-
         Returns:
         none
         """
@@ -161,9 +139,7 @@ class MyImage:
 
     def show(self) -> None:
         """Display the image in a GUI window.
-
         Parameters:
-
         Returns:
         none
         """

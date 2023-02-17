@@ -287,13 +287,34 @@ You have to fill in the solutions in the second part, and complete the code file
     
   \titledquestion{Efficiency} Which of the 2 implementations, \pyth{ArrayList} and \pyth{PointerList}, takes more time for this application? Why do you think that is? How can you modify the code, without altering the underlying structure, to speed up this implementation for this application? Justify your claim.
     \begin{solution}
-      
+      ArrayList store elements in contiguous memory locations, resulting in easily calculable addresses for the elements stored and this allows faster access to an element at a specific index. PointerList is less rigid in it's storage structure and elements are usually not stored in contiguous locations, hence they need to be stored with additional tags giving a reference to the next element.\\
+Problems With PointerList\\
+1) Random access is not allowed. So we cannot do a binary search with linked lists. \\
+2) Extra memory space for a pointer is required with each element of the list. \\
+3) Arrays have better cache locality that can make a pretty big difference in performance.\\
+4) It takes a lot of time in traversing and changing the pointers.\\
+5)  It will be confusing when we work with pointers.\\
+On Comparing the amortised analysis of ArrayList and PointerList, ArrayList has O(n) time complexity for arbitrary indices of add/remove, but O(1) for the operation at the end of the list. While for pointerList (linkedList) the time complexity is O(√N) where N is block of continuous elements being read. Clearly showing that PointerList takes more time and ArrayList is far more efficient.
+
+As Linked List elements are not contiguous, each element access incur a Time Complexity of O(√N).
+Searching through PointerLIst is linear so you need to iterate from beginning one by one so it is O(n).\\ Linked lists are not the best if you will use it for searching, you can utilize more suitable data structures such as binary trees. Ordering elements does not help much because still you need to iterate each element  anyway.\\
+We suggest following implementations to speed up the given piece of code:\\
+a) Sorting the given SLL, note that not many sorting algorithms work with SLL as it lack contiguous memory address however, Merge-sort can be used. Having a sorted SLL, Binary-search would be possible given that we know the count of elements in the list, dropping the time taken to search for a node from O(n) to O(logn).\\
+However this approach may not be viable option in every scenario, for better result we suggest the following, keeping in mind that to implement these we would have to change the underlying structure.\\
+b) the best way to speed up this algorithm would be to completely dispose SLL, and implement BST's or skiplist in its place
+
+
+refrences : https://www.geeksforgeeks.org/linked-list-vs-array/\\
     \end{solution}
 
   \titledquestion{Amortized Analysis}
     Consider an \pyth{ArrayStack} implementation of the \pyth{List} interface with a slightly altered \pyth{resize()} operation. Instead of reserving space for $2n$ elements in the new array, it reserves space for $N + \lceil \frac{n}{4} \rceil$ elements. Prove that the \pyth{append()} operation still takes $O(1)$ time in the amortized sense.
     \begin{solution}
+      Considering the situatuion where our arraystack reserves space for $(N + n/4)$ elements instead of 2n, each time array is resized It is very important for amortized analysis that the storage array increases by a multiplicative factor i.e when there is no space to add the next element, a larger array is allocated, and all the n current elements are copied. \\ This operation is O(n), but we refer to adding an element to a list as an O(1) operation.  Technically, adding an element is O(1) on average. the expansion from N to N+n/4 elements will require copying N elements into an array of size 2N, at a real cost of N.\\  We cannot have a constant amortization of the costs if we add a fixed amount to the array size each time it fills up.\\  The exponential growth of the length in our first version is important! You have to (at least) double the size of the array when expanding otherwise you do not get O(1) amortized costs of expansion.\\
       
+      refrences:\\
+http://anh.cs.luc.edu/363/notes/06A_Amortizing.html\\
+https://www.usna.edu/Users/cs/taylor/courses/ic312/units/03/unitb.html\\
     \end{solution}
     
   \end{questions}

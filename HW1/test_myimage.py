@@ -1,4 +1,4 @@
-from image_operations import *
+from src.image_operations import *
 from PIL import Image
 from urllib.request import urlopen
 
